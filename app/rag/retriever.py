@@ -55,20 +55,12 @@ class Retriever:
 
         deduplicated = self._deduplicate_by_patient(reranked, top_k)
 
-        #full_results = self._expand_to_full_text(deduplicated)
+        full_results = self._expand_to_full_text(deduplicated)
 
         return deduplicated
 
     def _rerank(self, query: str, docs: list[dict]) -> list[dict]:
-        """
-        Score each (query, doc) pair with the cross-encoder and attach the
-        result as `cross_encoder_score`.  The original `rrf_score` is kept
-        untouched so callers can inspect both signals.
-
-        The cross-encoder returns raw logits; we apply sigmoid to map them
-        into [0, 1] so they are easier to read, but note that most medical /
-        clinical text will produce values well below 0.5 — that is normal.
-        """
+        
         if not docs:
             return []
 
@@ -152,26 +144,26 @@ class Retriever:
                 break
         return unique
 
-    # def _expand_to_full_text(self, docs: list[dict]) -> list[dict]:
-    #     full_results = []
-    #     for doc in docs:
-    #         patient_uid = doc["metadata"].get("patient_uid")
-    #         if patient_uid is not None:
-    #             all_chunks = self.store.get_by_patient_id(patient_uid)
-    #             full_text = " ".join(chunk["text"] for chunk in all_chunks)
-    #         else:
-    #             full_text = doc["text"]
+    def _expand_to_full_text(self, docs: list[dict]) -> list[dict]:
+        full_results = []
+        for doc in docs:
+            patient_uid = doc["metadata"].get("patient_uid")
+            if patient_uid is not None:
+                all_chunks = self.store.get_by_patient_id(patient_uid)
+                full_text = " ".join(chunk["text"] for chunk in all_chunks)
+            else:
+                full_text = doc["text"]
 
-    #         full_results.append({
-    #             "id": doc["id"],
-    #             "text": full_text,
-    #             "metadata": doc["metadata"],
-    #             "rrf_score": doc.get("rrf_score"),
-    #             "cross_encoder_score": doc.get("cross_encoder_score"),
-    #             "cross_encoder_raw": doc.get("cross_encoder_raw"),
-    #         })
+            full_results.append({
+                "id": doc["id"],
+                "text": full_text,
+                "metadata": doc["metadata"],
+                "rrf_score": doc.get("rrf_score"),
+                "cross_encoder_score": doc.get("cross_encoder_score"),
+                "cross_encoder_raw": doc.get("cross_encoder_raw"),
+            })
 
-    #     return full_results
+        return full_results
 
     @staticmethod
     def _passes_filters(metadata: dict, min_age: float | None, max_age: float | None, gender: str | None) -> bool:
