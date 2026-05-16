@@ -1,0 +1,16 @@
+fastapi[standard]
+httpx
+pydantic-settings
+opencv-python
+numpy
+chromadb
+rank-bm25
+groq
+streamlit
+requests
+pandas
+sentence-transformers
+ragas
+langchain-groq
+langchain-community
+python-dotenv

@@ -1,0 +1,53 @@
+# ── Environment & Secrets ──
+.env
+.env.local
+.env.*.local
+
+# ── Python Virtual Environment ──
+.venv/
+venv/
+env/
+
+# ── Python Bytecode ──
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# ── Distribution / Packaging ──
+dist/
+build/
+*.egg-info/
+*.egg
+
+# ── ChromaDB (persistent vector store — large binary files) ──
+chroma_db/
+
+# ── Test / Coverage ──
+.pytest_cache/
+htmlcov/
+.coverage
+.coverage.*
+
+# ── IDE / Editor ──
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── OS Files ──
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# ── Logs ──
+*.log
+
+# ── Misc ──
+*.bak
+*.tmp
+
+rag_eval/
+app/rag/data/PMC-Patients.csv
+app/rag/data/preprocessed.csv
