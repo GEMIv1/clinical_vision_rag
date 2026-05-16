@@ -1,6 +1,6 @@
-# 🏥 Vision RAG — Clinical Case Search
+# Vision RAG — Clinical Case Search
 
-> **🧩 This project is a reusable template for any OCR + RAG application.**  
+> **This project is a reusable template for any OCR + RAG application.**  
 > Swap out the embedding model, adjust the chunking strategy, pick your preferred vision LLM, ingest your own data — and you have a ready retrieval system for **any** domain.  
 > As a demonstration, this repo uses **clinical patient case reports** from [PMC-Patients](https://huggingface.co/datasets/zhengyun21/PMC-Patients) to build a clinical decision-support search engine.
 
@@ -317,7 +317,7 @@ curl -X POST "http://localhost:8000/ingest/?csv_path=app/rag/data/preprocessed.c
 
 The CSV must contain columns: `patient_uid`, `title`, `age`, `gender`, `patient` (narrative text).
 
-> **📋 Data Preprocessing Note:** The raw PMC-Patients dataset stores patient ages in inconsistent scales — some in **years**, others in **months** or **days**. A preprocessing step (`app/rag/data/preprocessing.py`) normalizes all age values to a **single unified scale** so that age-based filtering works correctly across the entire dataset.
+> **Data Preprocessing Note:** The raw PMC-Patients dataset stores patient ages in inconsistent scales — some in **years**, others in **months** or **days**. A preprocessing step (`app/rag/data/preprocessing.py`) normalizes all age values to a **single unified scale** so that age-based filtering works correctly across the entire dataset.
 
 #### Chunking Strategy
 
@@ -345,7 +345,7 @@ Each chunk is then embedded using BioLORD-2023-C and stored in ChromaDB with met
 2. Type a clinical question (e.g., *"Have we seen a case of a child with respiratory failure after COVID-19?"*)
 3. Optionally attach a medical document image — text will be extracted and appended to your query
 4. Adjust filters (age range, gender, number of results)
-5. Click **🔍 Search (RAG)** for a full answer, or **📄 Retrieve Only** for raw documents
+5. Click **Search (RAG)** for a full answer, or **Retrieve Only** for raw documents
 
 ### 3. Search via API
 
